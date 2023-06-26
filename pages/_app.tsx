@@ -1,16 +1,20 @@
 import '../styles/tailwind.css';
-import Layout from '../components/Layout';
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { ApolloProvider } from '@apollo/client';
-import apolloClient from '../lib/apollo';
 import type { AppProps } from 'next/app';
+
+import Layout from '../components/Layout';
+import apolloClient from '../lib/apollo';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ApolloProvider client={apolloClient}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ApolloProvider>
+    <UserProvider>
+      <ApolloProvider client={apolloClient}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloProvider>
+    </UserProvider>
   );
 }
 
